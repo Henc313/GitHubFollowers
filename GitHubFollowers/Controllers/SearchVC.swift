@@ -19,7 +19,7 @@ class SearchVC: UIViewController {
    override func viewDidLoad() {
       super.viewDidLoad()
       usernameTextField.delegate = self
-      view.backgroundColor = .systemBackground
+      view.backgroundColor       = .systemBackground
       
       configureLogoImageView()
       configureTextField()
