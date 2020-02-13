@@ -1,21 +1,17 @@
 //
-//  GFAvatarImageView.swift
+//  GFAlertContainerView.swift
 //  GitHubFollowers
 //
-//  Created by ♏︎ on 1/11/20.
+//  Created by ♏︎ on 2/13/20.
 //  Copyright © 2020 Henry Kivimaa. All rights reserved.
 //
 
 import UIKit
 
-class GFAvatarImageView: UIImageView {
-   
-   let cache            = NetworkManager.shared.cache
-   let placeholderImage = UIImage(named: "avatar-placeholder")!
+class GFAlertContainerView: UIView {
    
    override init(frame: CGRect) {
       super.init(frame: frame)
-      configure()
    }
    
    required init?(coder: NSCoder) {
@@ -23,9 +19,10 @@ class GFAvatarImageView: UIImageView {
    }
    
    private func configure() {
-      layer.cornerRadius = 10
-      clipsToBounds      = true
-      image              = placeholderImage
+      backgroundColor      = .systemBackground
+      layer.cornerRadius   = 16
+      layer.borderWidth    = 2
+      layer.borderColor    = UIColor.white.cgColor
       translatesAutoresizingMaskIntoConstraints = false
    }
 }
