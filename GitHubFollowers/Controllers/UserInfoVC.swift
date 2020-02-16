@@ -12,6 +12,8 @@ import UIKit
 protocol UserInfoVCDelegate: class {
    func didRequestFollowers(for username: String)
 }
+
+
 class UserInfoVC: GFDataLoadingVC {
    
    let scrollView          = UIScrollView()
@@ -34,11 +36,13 @@ class UserInfoVC: GFDataLoadingVC {
       getUserInfo()
    }
    
+   
    func configureViewController() {
       view.backgroundColor              = .systemBackground
       let doneButton                    = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissVC))
       navigationItem.rightBarButtonItem = doneButton
    }
+   
    
    func configureScrollView() {
       view.addSubview(scrollView)
@@ -52,6 +56,7 @@ class UserInfoVC: GFDataLoadingVC {
          contentView.heightAnchor.constraint(equalToConstant: 600)
       ])
    }
+   
    
    fileprivate func getUserInfo() {
       NetworkManager.shared.getUserInfo(for: username) { [weak self] result in
@@ -67,12 +72,14 @@ class UserInfoVC: GFDataLoadingVC {
       }
    }
    
+   
    func configureUIElements(with user: User) {
       self.add(childVC: GFRepoItemVC(user: user, delegate: self), to: self.itemViewOne)
       self.add(childVC: GFFollowerItemVC(user: user, delegate: self), to: self.itemViewTwo)
       self.add(childVC: GFUserInfoHeaderVC(user: user), to: self.headerView)
       self.dateLabel.text = "GitHub since \(user.createdAt.convertToMonthYearFormat())"
    }
+   
    
    func layoutUI() {
       itemViews = [headerView, itemViewOne, itemViewTwo, dateLabel]
@@ -105,6 +112,7 @@ class UserInfoVC: GFDataLoadingVC {
       ])
    }
    
+   
    func add(childVC: UIViewController, to containerView: UIView) {
       addChild(childVC)
       containerView.addSubview(childVC.view)
@@ -115,6 +123,8 @@ class UserInfoVC: GFDataLoadingVC {
    @objc func dismissVC() {
       dismiss(animated: true)
    }
+   
+   
 }
 
 
@@ -130,6 +140,7 @@ extension UserInfoVC: GFRepoItemVCDelegate {
       presentSafariVC(with: url)
    }
 }
+
 
 extension UserInfoVC: GFFollowerItemVCDelegate {
    

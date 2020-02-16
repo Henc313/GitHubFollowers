@@ -13,9 +13,9 @@ class SearchVC: UIViewController {
    let logoImageView      = UIImageView()
    let usernameTextField  = GFTextField()
    let callToActionButton = GFButton(backgroundColor: .systemGreen, title: "Get Followers")
-   var logoImageViewTopConstraint: NSLayoutConstraint!
    
    var isUsernameEntered: Bool { return !usernameTextField.text!.isEmpty }
+   
    
    override func viewDidLoad() {
       super.viewDidLoad()
@@ -29,15 +29,18 @@ class SearchVC: UIViewController {
       createDismissKeyboardTapGesture()
    }
    
+   
    override func viewWillAppear(_ animated: Bool) {
       super.viewWillAppear(animated)
       usernameTextField.text = ""
       navigationController?.setNavigationBarHidden(true, animated: true)   }
    
+   
    func createDismissKeyboardTapGesture() {
       let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
       view.addGestureRecognizer(tap)
    }
+   
    
    @objc func pushFollowerListVC() {
       guard isUsernameEntered else {
@@ -53,21 +56,21 @@ class SearchVC: UIViewController {
       navigationController?.pushViewController(followerListVC, animated: true)
    }
    
+   
    func configureLogoImageView() {
       logoImageView.translatesAutoresizingMaskIntoConstraints = false
       logoImageView.image = Images.ghLogo
       
       let topConstraintConstant: CGFloat = DeviceTypes.isiPhoneSE || DeviceTypes.isiPhone8Zoomed ? 20 : 80
       
-      logoImageViewTopConstraint = logoImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: topConstraintConstant)
-      logoImageViewTopConstraint.isActive = true
-      
       NSLayoutConstraint.activate([
+         logoImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: topConstraintConstant),
          logoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
          logoImageView.heightAnchor.constraint(equalToConstant: 200),
          logoImageView.widthAnchor.constraint(equalToConstant: 200)
       ])
    }
+   
    
    func configureTextField() {
       NSLayoutConstraint.activate([
@@ -77,6 +80,7 @@ class SearchVC: UIViewController {
          usernameTextField.heightAnchor.constraint(equalToConstant: 50)
       ])
    }
+   
    
    func configureCallToActionButton() {
       callToActionButton.addTarget(self, action: #selector(pushFollowerListVC), for: .touchUpInside)
@@ -88,6 +92,7 @@ class SearchVC: UIViewController {
          callToActionButton.heightAnchor.constraint(equalToConstant: 50)
       ])
    }
+   
    
 }
 
